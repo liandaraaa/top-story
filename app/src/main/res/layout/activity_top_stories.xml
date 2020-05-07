@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <include layout="@layout/layout_toolbar" />
 
 
@@ -15,17 +16,25 @@
         app:msv_emptyView="@layout/layout_empty"
         app:msv_errorView="@layout/layout_error"
         app:msv_loadingView="@layout/layout_loading"
-        app:msv_viewState="loading">
+        app:msv_viewState="content">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvStory"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="16dp"
-            tools:itemCount="4"
-            tools:listitem="@layout/item_story" />
+            android:orientation="vertical">
+
+            <include layout="@layout/item_favorite_story" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvStory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="16dp"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_story" />
+
+        </LinearLayout>
 
     </com.kennyc.view.MultiStateView>
 

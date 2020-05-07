@@ -3,24 +3,25 @@ package com.lianda.topstoryapp.ui.topstories
 import android.content.Context
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kennyc.view.MultiStateView
 import com.lianda.topstoryapp.R
 import com.lianda.topstoryapp.data.model.Story
+import com.lianda.topstoryapp.data.preference.StoryPreference
 import com.lianda.topstoryapp.depth.service.model.Resource
-import com.lianda.topstoryapp.ui.groupie.HeaderSection
-import com.lianda.topstoryapp.ui.groupie.StoryContentSection
+import com.lianda.topstoryapp.ui.adapter.StoryAdapter
 import com.lianda.topstoryapp.ui.storydetail.StoryDetailActivity
+import com.lianda.topstoryapp.ui.storydetail.StoryDetailActivity.Companion.FAVORITE_STORY
 import com.lianda.topstoryapp.ui.viewmodel.StoryViewModel
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.activity_top_stories.*
+import kotlinx.android.synthetic.main.item_favorite_story.*
 import kotlinx.android.synthetic.main.layout_error.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import org.jetbrains.anko.startActivity
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TopStoriesActivity : AppCompatActivity() {
@@ -33,7 +34,13 @@ class TopStoriesActivity : AppCompatActivity() {
 
     private val storyViewModel: StoryViewModel by viewModel()
 
-    private val groupieAdapter = GroupAdapter<GroupieViewHolder>()
+    private val storyAdapter: StoryAdapter by lazy {
+        StoryAdapter(this, mutableListOf()) { id ->
+            goToDetailActivity(id)
+        }
+    }
+
+    private val preference: StoryPreference by inject()
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
@@ -44,12 +51,8 @@ class TopStoriesActivity : AppCompatActivity() {
 
         observeData()
 
-        rvStory.apply {
-            layoutManager = LinearLayoutManager(this@TopStoriesActivity)
-            adapter = groupieAdapter
-        }
-
         getTopStories()
+        showFavoriteStory()
     }
 
     private fun getTopStories() {
@@ -76,29 +79,20 @@ class TopStoriesActivity : AppCompatActivity() {
         )
     }
 
-    private fun showFavoriteStories(stories: List<Story>) {
-        groupieAdapter.add(HeaderSection("Favorite Stories"))
-        groupieAdapter.add(
-            StoryContentSection(
-                context = this,
-                datas = stories,
-                onItemClick = { id ->
-                    goToDetailActivity(id)
-                }
-            )
-        )
+    private fun showFavoriteStory() {
+        val favoriteStory = preference.getString(FAVORITE_STORY, "")
+        if (favoriteStory.isNotEmpty()) {
+            favoriteContainer.visibility = View.VISIBLE
+            tvFavoriteTitle.text = favoriteStory
+        }
     }
 
     private fun showStories(stories: List<Story>) {
-        groupieAdapter.add(
-            StoryContentSection(
-                context = this,
-                datas = stories,
-                onItemClick = { id ->
-                    goToDetailActivity(id)
-                }
-            )
-        )
+        storyAdapter.datas.addAll(stories)
+        rvStory.apply {
+            layoutManager = LinearLayoutManager(this@TopStoriesActivity)
+            adapter = storyAdapter
+        }
     }
 
     private fun goToDetailActivity(storyId: Int) {

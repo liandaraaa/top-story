@@ -2,6 +2,7 @@ package com.lianda.topstoryapp.application
 
 import android.app.Application
 import com.lianda.topstoryapp.depth.koin.KoinContext
+import com.lianda.topstoryapp.depth.module.preferenceModule
 import com.lianda.topstoryapp.depth.module.serviceModule
 import com.lianda.topstoryapp.depth.module.storyModule
 import com.lianda.topstoryapp.depth.module.utilityModule
@@ -20,6 +21,7 @@ class TopStoryApplication :Application(){
                 listOf(
                     serviceModule,
                     utilityModule,
+                    preferenceModule,
                     storyModule
                 )
             )

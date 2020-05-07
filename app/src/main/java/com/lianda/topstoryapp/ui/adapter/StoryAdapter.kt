@@ -9,7 +9,7 @@ import com.lianda.topstoryapp.R
 import com.lianda.topstoryapp.data.model.Story
 import kotlinx.android.synthetic.main.item_story.view.*
 
-class StoryAdapter (val context: Context, val datas:List<Story>, val onItemClick:((id:Int)->Unit)?):
+class StoryAdapter (val context: Context, val datas:MutableList<Story>, val onItemClick:((id:Int)->Unit)?):
     RecyclerView.Adapter<StoryAdapter.StoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
