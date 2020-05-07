@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        tools:text="Favorite Movie" />
+        android:text="Favorite Story" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"

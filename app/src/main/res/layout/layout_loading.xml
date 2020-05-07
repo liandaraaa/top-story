@@ -9,4 +9,13 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TopStoryTextViewHeader.Primary"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/label_wait_for_data"/>
+
 </RelativeLayout>

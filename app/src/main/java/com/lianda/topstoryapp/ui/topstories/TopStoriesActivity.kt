@@ -1,6 +1,7 @@
 package com.lianda.topstoryapp.ui.topstories
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,8 @@ import com.lianda.topstoryapp.depth.service.model.Resource
 import com.lianda.topstoryapp.ui.adapter.StoryAdapter
 import com.lianda.topstoryapp.ui.storydetail.StoryDetailActivity
 import com.lianda.topstoryapp.ui.storydetail.StoryDetailActivity.Companion.FAVORITE_STORY
+import com.lianda.topstoryapp.ui.storydetail.StoryDetailActivity.Companion.STORY_REQUEST
+import com.lianda.topstoryapp.ui.storydetail.StoryDetailActivity.Companion.STORY_RESULT
 import com.lianda.topstoryapp.ui.viewmodel.StoryViewModel
 import com.lianda.topstoryapp.utils.gone
 import com.lianda.topstoryapp.utils.visible
@@ -42,7 +45,6 @@ class TopStoriesActivity : AppCompatActivity() {
     }
 
     private val preference: StoryPreference by inject()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,6 +103,13 @@ class TopStoriesActivity : AppCompatActivity() {
 
     private fun goToDetailActivity(storyId: Int) {
         StoryDetailActivity.start(this, storyId)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == STORY_REQUEST && resultCode == STORY_RESULT){
+            showFavoriteStory()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 }

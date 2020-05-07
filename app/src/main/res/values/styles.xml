@@ -10,12 +10,10 @@
 
     <style name="TopStoryTextViewHeader">
         <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TopStoryTextViewSubHeader">
         <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TopStoryTextViewCaption">
@@ -40,6 +38,10 @@
 
     <style name="TopStoryTextViewCaption.Primary">
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TopStoryTextViewCaption.White">
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
 </resources>

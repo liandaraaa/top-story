@@ -1,6 +1,7 @@
 package com.lianda.topstoryapp.ui.adapter
 
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,7 @@ class CommentAdapter(val context: Context, val datas: MutableList<Comment>) :
         fun bind(comment: Comment) {
             with(itemView) {
                 tvTitle.text = comment.by
-                tvComment.text = comment.text
+                tvComment.text = Html.fromHtml(comment.text)
             }
         }
     }
