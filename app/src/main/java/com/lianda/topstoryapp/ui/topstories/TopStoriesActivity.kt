@@ -3,7 +3,6 @@ package com.lianda.topstoryapp.ui.topstories
 import android.content.Context
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +15,8 @@ import com.lianda.topstoryapp.ui.adapter.StoryAdapter
 import com.lianda.topstoryapp.ui.storydetail.StoryDetailActivity
 import com.lianda.topstoryapp.ui.storydetail.StoryDetailActivity.Companion.FAVORITE_STORY
 import com.lianda.topstoryapp.ui.viewmodel.StoryViewModel
+import com.lianda.topstoryapp.utils.gone
+import com.lianda.topstoryapp.utils.visible
 import kotlinx.android.synthetic.main.activity_top_stories.*
 import kotlinx.android.synthetic.main.item_favorite_story.*
 import kotlinx.android.synthetic.main.layout_error.*
@@ -82,8 +83,10 @@ class TopStoriesActivity : AppCompatActivity() {
     private fun showFavoriteStory() {
         val favoriteStory = preference.getString(FAVORITE_STORY, "")
         if (favoriteStory.isNotEmpty()) {
-            favoriteContainer.visibility = View.VISIBLE
+            favoriteContainer.visible()
             tvFavoriteTitle.text = favoriteStory
+        }else{
+            favoriteContainer.gone()
         }
     }
 
