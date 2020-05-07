@@ -3,7 +3,13 @@ package com.lianda.topstoryapp.depth.module
 import com.lianda.topstoryapp.BuildConfig
 import com.lianda.topstoryapp.depth.service.OkhttpClientFactory
 import com.google.gson.Gson
-import io.reactivex.disposables.CompositeDisposable
+import com.lianda.topstoryapp.data.remote.Api
+import com.lianda.topstoryapp.data.remote.ApiClient
+import com.lianda.topstoryapp.data.source.DataSource
+import com.lianda.topstoryapp.data.source.RepositoryImpl
+import com.lianda.topstoryapp.depth.service.RetrofitService
+import com.lianda.topstoryapp.ui.viewmodel.StoryViewModel
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -14,10 +20,17 @@ val serviceModule = module {
     single(named(BASE_URL)){BuildConfig.BASE_URL}
 }
 
-val rxModule = module{
-    factory { CompositeDisposable() }
-}
-
 val utilityModule = module{
     single { Gson() }
+}
+
+val storyModule = module {
+    single { RetrofitService.createReactiveService(
+        ApiClient::class.java,
+        get(),
+        get(named(BASE_URL))
+    ) }
+    single { Api(get()) }
+    single<RepositoryImpl>{DataSource(get())}
+    viewModel { StoryViewModel(get()) }
 }

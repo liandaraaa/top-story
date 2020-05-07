@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Top Story App</string>
+    <string name="title_activity_top_stories">TopStoriesActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="format_total_score">Score : %d</string>
+    <string name="format_total_commentar">Commentar : %d</string>
+    <string name="error_title_oops">Ooops</string>
+    <string name="error_empty_result">No Results</string>
+    <string name="error_something_occured">Something Error Occured</string>
+    <string name="action_retry">Retry</string>
+    <string name="label_top_stories">Top Stories</string>
 </resources>
