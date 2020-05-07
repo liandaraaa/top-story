@@ -87,17 +87,8 @@ class StoryDetailActivity : AppCompatActivity() {
 
         storyViewModel.comments.observe(this, Observer {
             when (it) {
-                is Resource.Loading -> msvStoryDetail.viewState = MultiStateView.ViewState.LOADING
-                is Resource.Empty -> msvStoryDetail.viewState = MultiStateView.ViewState.EMPTY
                 is Resource.Success -> {
-                    msvStoryDetail.viewState = MultiStateView.ViewState.CONTENT
                     showComments(it.data)
-                }
-                is Resource.Error -> {
-                    msvStoryDetail.viewState = MultiStateView.ViewState.ERROR
-                    btnRetry.setOnClickListener {
-                        storyViewModel.getTopStories()
-                    }
                 }
             }
         }
