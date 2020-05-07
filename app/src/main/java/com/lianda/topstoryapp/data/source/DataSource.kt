@@ -1,5 +1,6 @@
 package com.lianda.topstoryapp.data.source
 
+import com.lianda.topstoryapp.data.model.Comment
 import com.lianda.topstoryapp.data.model.Story
 import com.lianda.topstoryapp.data.remote.Api
 
@@ -13,4 +14,7 @@ class DataSource(val api: Api) : RepositoryImpl {
         return api.getStoryDetail(storyId)
     }
 
+    override suspend fun getCommentDetail(commentId: Int): Comment {
+        return api.getCommentDetail(commentId)
+    }
 }

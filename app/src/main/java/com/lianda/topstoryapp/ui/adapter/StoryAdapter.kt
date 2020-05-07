@@ -9,7 +9,7 @@ import com.lianda.topstoryapp.R
 import com.lianda.topstoryapp.data.model.Story
 import kotlinx.android.synthetic.main.item_story.view.*
 
-class StoryAdapter (val context: Context, val datas:List<Story>):
+class StoryAdapter (val context: Context, val datas:List<Story>, val onItemClick:((id:Int)->Unit)?):
     RecyclerView.Adapter<StoryAdapter.StoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
@@ -28,6 +28,10 @@ class StoryAdapter (val context: Context, val datas:List<Story>):
                 tvTitle.text = story.title
                 tvScore.text = String.format(context.getString(R.string.format_total_score), story.score)
                 tvTotalComment.text = String.format(context.getString(R.string.format_total_commentar), story.kids?.size)
+
+                setOnClickListener {
+                    onItemClick?.invoke(story.id ?: 0)
+                }
             }
         }
     }

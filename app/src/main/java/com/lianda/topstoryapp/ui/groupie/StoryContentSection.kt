@@ -11,13 +11,14 @@ import kotlinx.android.synthetic.main.item_content.*
 
 class StoryContentSection (
     val context:Context,
-    val datas:List<Story>
+    val datas:List<Story>,
+    val onItemClick:((id:Int)->Unit)?
 ): Item() {
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         with(viewHolder){
 
-            val storyAdapter = StoryAdapter(context, datas)
+            val storyAdapter = StoryAdapter(context, datas, onItemClick)
 
             rvContent.apply {
                 layoutManager = LinearLayoutManager(context)

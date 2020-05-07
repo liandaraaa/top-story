@@ -13,11 +13,13 @@ import com.lianda.topstoryapp.data.model.Story
 import com.lianda.topstoryapp.depth.service.model.Resource
 import com.lianda.topstoryapp.ui.groupie.HeaderSection
 import com.lianda.topstoryapp.ui.groupie.StoryContentSection
+import com.lianda.topstoryapp.ui.storydetail.StoryDetailActivity
 import com.lianda.topstoryapp.ui.viewmodel.StoryViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.activity_top_stories.*
 import kotlinx.android.synthetic.main.layout_error.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 import org.jetbrains.anko.startActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -79,7 +81,10 @@ class TopStoriesActivity : AppCompatActivity() {
         groupieAdapter.add(
             StoryContentSection(
                 context = this,
-                datas = stories
+                datas = stories,
+                onItemClick = { id ->
+                    goToDetailActivity(id)
+                }
             )
         )
     }
@@ -88,9 +93,16 @@ class TopStoriesActivity : AppCompatActivity() {
         groupieAdapter.add(
             StoryContentSection(
                 context = this,
-                datas = stories
+                datas = stories,
+                onItemClick = { id ->
+                    goToDetailActivity(id)
+                }
             )
         )
+    }
+
+    private fun goToDetailActivity(storyId: Int) {
+        StoryDetailActivity.start(this, storyId)
     }
 
 }
