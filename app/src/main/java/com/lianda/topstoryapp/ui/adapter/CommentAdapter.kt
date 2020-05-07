@@ -36,7 +36,7 @@ class CommentAdapter(val context: Context, val datas: MutableList<Comment>) :
         fun bind(comment: Comment?) {
             with(itemView) {
                 tvTitle.text = comment?.by
-                tvComment.text = Html.fromHtml(comment?.text)
+                tvComment.text = Html.fromHtml(comment?.text.orEmpty())
             }
         }
     }
